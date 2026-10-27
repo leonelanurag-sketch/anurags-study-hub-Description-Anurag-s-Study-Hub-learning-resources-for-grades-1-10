@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>Anurag's Study Hub</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1220;--panel:#111e30;--line:#2a4360;--muted:#aec0d7;--blue:#3299f5;--text:#f3f7ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}a{color:#83c5ff}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px max(4%,calc((100% - 1200px)/2));background:#0d192a;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4}.brand{font-size:21px;font-weight:800;text-decoration:none;color:white}.brand span{color:#5bb3ff}.topnav{display:flex;gap:10px;flex-wrap:wrap}.topnav button,.btn{border:1px solid #355574;background:#172a41;color:white;padding:9px 13px;border-radius:10px}.topnav button.active,.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.wrap{max-width:1200px;margin:auto;padding:25px 4% 50px}.hero{padding:35px 20px;text-align:center;border:1px solid var(--line);border-radius:20px;background:radial-gradient(ellipse at top,#1a456b,#101d30 65%);margin-bottom:24px}.hero h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:8px 0}.hero p{color:#d0deef;max-width:650px;margin:12px auto 20px}.search{display:flex;gap:8px;max-width:620px;margin:auto}.search input{flex:1;min-width:0}.field,input,select,textarea{background:#0a1728;color:white;border:1px solid #35516e;border-radius:10px;padding:11px;width:100%}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:650}.btn:hover,button:hover{filter:brightness(1.12)}.section-title{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:28px 0 14px}.section-title h2{margin:0;font-size:25px}.muted{color:var(--muted)}.grades{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}.grade{min-height:125px;text-align:left;border:0;border-radius:14px;padding:16px;color:#12243a;background:linear-gradient(135deg,#ffe5eb,#ffcbd9);font-weight:800;display:flex;flex-direction:column;justify-content:space-between}.grade:nth-child(5n+2){background:linear-gradient(135deg,#fff0dc,#ffdbb2)}.grade:nth-child(5n+3){background:linear-gradient(135deg,#fff6d8,#f8e5a7)}.grade:nth-child(5n+4){background:linear-gradient(135deg,#e4f9e7,#c7f0d0)}.grade:nth-child(5n){background:linear-gradient(135deg,#d9fbf3,#b5eee2)}.grade strong{font-size:23px}.grade small{font-weight:600}.grade.selected{outline:3px solid #53b4ff;outline-offset:2px}.panel{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:20px;margin-top:20px}.panel h2,.panel h3{margin-top:0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}.fieldgroup{display:grid;gap:6px}.fieldgroup label{font-weight:650;font-size:14px}.checks{display:flex;gap:8px;align-items:center;color:var(--muted)}.checks input{width:auto}.status{margin:12px 0;padding:11px 13px;border-radius:10px;background:#132a40;color:#d8eaff;white-space:pre-wrap}.status.error{background:#3b2029;color:#ffd9df}.status.success{background:#16372e;color:#d0ffdf}.hidden{display:none!important}.docgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.doc{border:1px solid var(--line);background:#0d192a;border-radius:13px;padding:15px;min-width:0}.doc h3{margin:0 0 5px;overflow-wrap:anywhere}.doc p{color:var(--muted);font-size:14px;margin:5px 0 12px;overflow-wrap:anywhere}.tag{font-size:12px;color:#a9d8ff;border:1px solid #345473;border-radius:30px;padding:3px 8px;display:inline-block;margin:0 5px 5px 0}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.danger{border-color:#874452;color:#ffd6dd}.empty{border:1px dashed #385571;border-radius:12px;padding:18px;color:var(--muted)}footer{padding:25px 4%;border-top:1px solid var(--line);color:var(--muted);text-align:center;font-size:13px}.fine{font-size:12px;color:#9eb1c8}.notice{border-left:3px solid #51aaff;padding:10px 13px;background:#10243a;color:#d7e7fa;border-radius:0 9px 9px 0;font-size:14px}
+@media(max-width:900px){.grades{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:600px){.top{align-items:flex-start;flex-direction:column}.wrap{padding-top:16px}.grades{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grade{min-height:110px;padding:13px}.grid2,.docgrid{grid-template-columns:1fr}.search{flex-direction:column}.search .btn{width:100%}.panel{padding:15px}.section-title{align-items:flex-start;flex-direction:column}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#">🎓 Anurag's <span>Study Hub</span></a>
+  <nav class="topnav"><button id="studentTab" class="active">Student library</button><button id="teacherTab">Teacher login</button></nav>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="muted">LEARN · GROW · SUCCEED</div>
+    <h1>Welcome to <span style="color:#5bb3ff">Anurag's Study Hub</span></h1>
+    <p>Study notes, worksheets, assignments and revision documents for Grades 1–10.</p>
+    <form class="search" id="searchForm"><input id="searchInput" placeholder="Search documents, subjects or keywords" aria-label="Search documents"><button class="btn primary" type="submit">Search</button></form>
+  </section>
+  <section id="studentView">
+    <div class="section-title"><div><h2>Choose your grade</h2><div class="muted">Tap a grade to browse published documents.</div></div><button class="btn" id="clearFilter">Show all grades</button></div>
+    <div class="grades" id="gradeGrid"></div>
+    <div class="section-title"><div><h2 id="libraryTitle">Published study documents</h2><div class="muted" id="libraryHint">Select a grade or search for a topic.</div></div></div>
+    <div id="publicDocs" class="docgrid"></div>
+    <div id="publicStatus" class="status">Connect the website to Supabase to load published documents. Setup instructions are included in the download.</div>
+  </section>
+  <section id="teacherView" class="hidden">
+    <div class="panel" id="setupNotice">
+      <h2>Teacher dashboard</h2>
+      <p>This dashboard uses Supabase for login, document records and file storage. Finish the setup instructions first, then add your Supabase Project URL and publishable/anon key in this HTML file.</p>
+      <p class="notice">Security note: never paste a Supabase <strong>service_role</strong> key into a website. Only the publishable/anon key belongs in this browser app; database and storage policies enforce access.</p>
+      <p class="fine">After setup, this page lets the signed-in teacher upload, publish, unpublish and delete documents. Students can see only published document listings.</p>
+    </div>
+    <div class="panel" id="loginPanel">
+      <h2>Teacher sign in</h2><p class="muted">Use the teacher account created in Supabase. Public sign-up is intentionally not provided.</p>
+      <form id="loginForm" class="grid2">
+        <div class="fieldgroup"><label for="email">Teacher email</label><input id="email" type="email" autocomplete="username" required placeholder="you@example.com"></div>
+        <div class="fieldgroup"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="Your password"></div>
+        <div><button class="btn primary" type="submit">Sign in</button></div>
+      </form>
+      <div id="loginStatus" class="status">Login will work after Supabase setup.</div>
+    </div>
+    <div class="panel hidden" id="uploadPanel">
+      <div class="section-title"><div><h2>Upload a study document</h2><div id="signedInAs" class="muted"></div></div><button class="btn" id="logoutBtn">Sign out</button></div>
+      <form id="uploadForm">
+        <div class="grid2">
+          <div class="fieldgroup"><label for="docTitle">Document title *</label><input id="docTitle" required maxlength="120" placeholder="e.g. Grade 4 — Plants worksheet"></div>
+          <div class="fieldgroup"><label for="gradeSelect">Grade *</label><select id="gradeSelect" required></select></div>
+          <div class="fieldgroup"><label for="subjectSelect">Subject *</label><select id="subjectSelect" required></select></div>
+          <div class="fieldgroup"><label for="docFile">File (PDF recommended) *</label><input id="docFile" type="file" required accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.jpg,.jpeg,.png,.txt"></div>
+          <div class="fieldgroup" style="grid-column:1/-1"><label for="description">Short description (optional)</label><textarea id="description" rows="2" maxlength="500" placeholder="What will students learn from this document?"></textarea></div>
+        </div>
+        <p class="fine">Maximum file size: 20 MB in this starter. Only upload materials you have permission to share. Avoid student personal information.</p>
+        <label class="checks"><input id="publishNow" type="checkbox"> Publish immediately so students can see it</label>
+        <div class="actions"><button class="btn primary" type="submit" id="uploadBtn">Upload document</button></div>
+      </form>
+      <div id="uploadStatus" class="status hidden"></div>
+    </div>
+    <div class="panel hidden" id="managePanel">
+      <div class="section-title"><div><h2>Manage documents</h2><div class="muted">Publish or unpublish resources at any time.</div></div><button class="btn" id="refreshBtn">Refresh</button></div>
+      <div id="manageDocs" class="docgrid"></div>
+      <div id="manageStatus" class="status">Sign in to manage your documents.</div>
+    </div>
+  </section>
+  <section class="panel" id="curriculum">
+    <h2>Curriculum & study resources</h2>
+    <p class="muted">Use the official Curriculum Development Centre (CDC), Nepal, to verify the latest syllabus and textbook edition.</p>
+    <p><a href="https://moecdc.gov.np/" target="_blank" rel="noopener">CDC official website ↗</a> · <a href="https://lib.moecdc.gov.np/elibrary/pages/search.php" target="_blank" rel="noopener">CDC E-Library ↗</a></p>
+    <p class="fine">This is a document-sharing site, not an official government education website.</p>
+  </section>
+</main>
+<footer><strong>Anurag's Study Hub</strong><br>Grades 1–10 · Learn · Grow · Succeed</footer>
+<script>
+// STEP 1: replace these placeholders with your Supabase Project URL and publishable/anon key.
+const SUPABASE_URL = "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE";
+const SUPABASE_ANON_KEY = "PASTE_YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY_HERE";
+const BUCKET = "study-documents";
+const READY = SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
+const db = READY ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const subjects = ["Science","Health, Physical & Creative Arts","Mathematics","English","Nepali","Social Studies","Computer","Optional Subject","Other"];
+let selectedGrade = null, currentDocs = [], currentUser = null;
+const $ = id => document.getElementById(id);
+for(let g=1;g<=10;g++){
+  const b=document.createElement("button");b.className="grade";b.dataset.grade=g;
+  b.innerHTML=`<strong>Grade ${g}</strong><small>Browse learning materials →</small>`;
+  b.addEventListener("click",()=>{selectedGrade=g;document.querySelectorAll(".grade").forEach(x=>x.classList.toggle("selected",Number(x.dataset.grade)===g));$("libraryTitle").textContent=`Grade ${g} documents`;loadPublicDocs()});
+  $("gradeGrid").appendChild(b);
+  const opt=document.createElement("option");opt.value=g;opt.textContent=`Grade ${g}`;$("gradeSelect").appendChild(opt);
+}
+subjects.forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;$("subjectSelect").appendChild(o)});
+function showStatus(id,msg,type=""){const el=$(id);el.textContent=msg;el.className="status"+(type?" "+type:"");}
+function escapeHTML(s=""){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function fileURL(path){return db.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;}
+function docCard(d,teacher=false){
+ const published=!!d.published;
+ const card=document.createElement("article");card.className="doc";
+ card.innerHTML=`<div><span class="tag">Grade ${d.grade}</span><span class="tag">${escapeHTML(d.subject)}</span>${teacher?`<span class="tag">${published?"Published":"Draft"}</span>`:""}</div><h3>${escapeHTML(d.title)}</h3><p>${escapeHTML(d.description||"Study document")}</p><p>${escapeHTML(d.file_name||"File")} · ${d.file_size?`${(d.file_size/1024/1024).toFixed(1)} MB`:""}</p><div class="actions"><a class="btn primary" href="${escapeHTML(fileURL(d.file_path))}" target="_blank" rel="noopener">Open / download ↗</a>${teacher?`<button class="btn" data-toggle>${published?"Unpublish":"Publish"}</button><button class="btn danger" data-delete>Delete</button>`:""}</div>`;
+ if(teacher){
+  card.querySelector("[data-toggle]").addEventListener("click",async()=>{const {error}=await db.from("study_documents").update({published:!published}).eq("id",d.id).eq("teacher_id",currentUser.id);if(error){showStatus("manageStatus",error.message,"error")}else{await loadTeacherDocs();await loadPublicDocs();}});
+  card.querySelector("[data-delete]").addEventListener("click",async()=>{if(!confirm(`Delete "${d.title}" permanently?`))return;const {error:storageError}=await db.storage.from(BUCKET).remove([d.file_path]);if(storageError){showStatus("manageStatus","File delete failed: "+storageError.message,"error");return;}const {error}=await db.from("study_documents").delete().eq("id",d.id).eq("teacher_id",currentUser.id);if(error)showStatus("manageStatus",error.message,"error");else{await loadTeacherDocs();await loadPublicDocs();}});
+ }
+ return card;
+}
+async function loadPublicDocs(){
+ if(!READY){$("publicDocs").innerHTML="";showStatus("publicStatus","Website setup required: add your Supabase URL and publishable/anon key in the script near the bottom of this HTML.");return;}
+ $("publicDocs").innerHTML="";showStatus("publicStatus","Loading published documents…");
+ let query=db.from("study_documents").select("*").eq("published",true).order("created_at",{ascending:false}).limit(200);
+ if(selectedGrade)query=query.eq("grade",selectedGrade);
+ const q=$("searchInput").value.trim();if(q)query=query.or(`title.ilike.%${q}%,subject.ilike.%${q}%,description.ilike.%${q}%`);
+ const {data,error}=await query;
+ if(error){showStatus("publicStatus","Could not load documents: "+error.message,"error");return;}
+ currentDocs=data||[];
+ if(!currentDocs.length){showStatus("publicStatus",selectedGrade?`No published documents for Grade ${selectedGrade} yet.`:"No published documents yet. Check back soon.");return;}
+ showStatus("publicStatus",`${currentDocs.length} published document(s) found.`,"success");
+ currentDocs.forEach(d=>$("publicDocs").appendChild(docCard(d)));
+}
+async function loadTeacherDocs(){
+ if(!db||!currentUser)return;
+ $("manageDocs").innerHTML="";showStatus("manageStatus","Loading your documents…");
+ const {data,error}=await db.from("study_documents").select("*").eq("teacher_id",currentUser.id).order("created_at",{ascending:false}).limit(300);
+ if(error){showStatus("manageStatus",error.message,"error");return;}
+ if(!data?.length){showStatus("manageStatus","No documents uploaded yet.");return;}
+ data.forEach(d=>$("manageDocs").appendChild(docCard(d,true)));
+ showStatus("manageStatus",`${data.length} document(s) in your library.`,"success");
+}
+function setTeacherState(user){
+ currentUser=user;
+ $("loginPanel").classList.toggle("hidden",!!user);
+ $("uploadPanel").classList.toggle("hidden",!user);
+ $("managePanel").classList.toggle("hidden",!user);
+ $("setupNotice").classList.toggle("hidden",READY);
+ $("signedInAs").textContent=user?`Signed in as ${user.email}`:"";
+ if(user){loadTeacherDocs();}
+}
+$("studentTab").addEventListener("click",()=>{$("studentTab").classList.add("active");$("teacherTab").classList.remove("active");$("studentView").classList.remove("hidden");$("teacherView").classList.add("hidden");});
+$("teacherTab").addEventListener("click",()=>{$("teacherTab").classList.add("active");$("studentTab").classList.remove("active");$("teacherView").classList.remove("hidden");$("studentView").classList.add("hidden");if(!READY)showStatus("loginStatus","Connect Supabase first using the setup guide included with this website.");});
+$("searchForm").addEventListener("submit",e=>{e.preventDefault();loadPublicDocs()});
+$("searchInput").addEventListener("input",()=>{clearTimeout(window._searchTimer);window._searchTimer=setTimeout(loadPublicDocs,350)});
+$("clearFilter").addEventListener("click",()=>{selectedGrade=null;document.querySelectorAll(".grade").forEach(x=>x.classList.remove("selected"));$("libraryTitle").textContent="Published study documents";loadPublicDocs()});
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!READY){showStatus("loginStatus","Supabase isn't configured yet. Follow the setup guide first.","error");return;}showStatus("loginStatus","Signing in…");const {data,error}=await db.auth.signInWithPassword({email:$("email").value,password:$("password").value});if(error){showStatus("loginStatus",error.message,"error");return;}showStatus("loginStatus","Signed in successfully.","success");setTeacherState(data.user);});
+$("logoutBtn").addEventListener("click",async()=>{if(db)await db.auth.signOut();setTeacherState(null);showStatus("loginStatus","You have signed out.")});
+$("refreshBtn").addEventListener("click",loadTeacherDocs);
+$("uploadForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!READY||!currentUser){showStatus("uploadStatus","Please connect Supabase and sign in first.","error");return;}
+ const file=$("docFile").files[0];if(!file){showStatus("uploadStatus","Choose a file first.","error");return;}
+ if(file.size>20*1024*1024){showStatus("uploadStatus","This starter allows files up to 20 MB. Compress the file or split it into smaller documents.","error");return;}
+ const allowed=/\.(pdf|doc|docx|ppt|pptx|xls|xlsx|jpg|jpeg|png|txt)$/i;if(!allowed.test(file.name)){showStatus("uploadStatus","File type not allowed. Use PDF, Office documents, images or TXT.","error");return;}
+ $("uploadBtn").disabled=true;showStatus("uploadStatus","Uploading file…");
+ const grade=Number($("gradeSelect").value),ext=(file.name.match(/\.[^.]+$/)||[""])[0].toLowerCase();
+ const safeName=file.name.replace(/[^a-zA-Z0-9._ -]/g,"_").slice(-100);
+ const filePath=`${currentUser.id}/${grade}/${crypto.randomUUID()}-${safeName}`;
+ try{
+  const {error:upErr}=await db.storage.from(BUCKET).upload(filePath,file,{contentType:file.type||"application/octet-stream",upsert:false});
+  if(upErr)throw upErr;
+  const {error:dbErr}=await db.from("study_documents").insert({title:$("docTitle").value.trim(),grade,subject:$("subjectSelect").value,description:$("description").value.trim(),file_path:filePath,file_name:file.name,file_size:file.size,published:$("publishNow").checked,teacher_id:currentUser.id});
+  if(dbErr){await db.storage.from(BUCKET).remove([filePath]);throw dbErr;}
+  showStatus("uploadStatus","Upload complete! "+($("publishNow").checked?"The document is published for students.":"Saved as a draft; publish it from Manage documents."),"success");
+  $("uploadForm").reset();await loadTeacherDocs();await loadPublicDocs();
+ }catch(err){showStatus("uploadStatus","Upload failed: "+(err.message||String(err)),"error");}
+ finally{$("uploadBtn").disabled=false;}
+});
+if(READY){
+ db.auth.getSession().then(({data})=>setTeacherState(data.session?.user||null));
+ db.auth.onAuthStateChange((_event,session)=>{if(session?.user)setTeacherState(session.user);else if(currentUser)setTeacherState(null)});
+}
+loadPublicDocs();
+</script>
+</body></html>
